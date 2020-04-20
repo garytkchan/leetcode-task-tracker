@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createTopic } from "../../actions/topicActions";
+import classnames from "classnames";
 
 class AddTopic extends Component {
   constructor() {
@@ -47,6 +48,7 @@ class AddTopic extends Component {
   }
 
   render() {
+    // extract the errors from Redux
     const { errors } = this.state;
 
     return (
@@ -63,35 +65,51 @@ class AddTopic extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg "
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.topicName,
+                      })}
                       placeholder="Topic: Linked List, Array, etc."
                       name="topicName"
                       value={this.state.topicName}
                       onChange={this.onChange}
                     />
-                    <p>{errors.topicName}</p>
+                    {errors.topicName && (
+                      <div className="invalid-feedback">{errors.topicName}</div>
+                    )}
                   </div>
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.topicIdentifier,
+                      })}
                       placeholder="Unique Abbreviation"
                       name="topicIdentifier"
                       value={this.state.topicIdentifier}
                       onChange={this.onChange}
                     />
-                    <p>{errors.topicIdentifier}</p>
+                    {errors.topicIdentifier && (
+                      <div className="invalid-feedback">
+                        {errors.topicIdentifier}
+                      </div>
+                    )}
                   </div>
 
                   <div className="form-group">
                     <textarea
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.description,
+                      })}
                       placeholder="General Time and Space Complexity for this topic to pass interview"
                       name="description"
                       value={this.state.description}
                       onChange={this.onChange}
                     ></textarea>
-                    <p>{errors.description}</p>
+                    {errors.description && (
+                      <div className="invalid-feedback">
+                        {errors.description}
+                      </div>
+                    )}
                   </div>
                   <h6>Start Date</h6>
                   <div className="form-group">
