@@ -18,6 +18,7 @@ import java.util.Map;
 // CRUD Functions
 @RestController
 @RequestMapping("/api/topic")
+@CrossOrigin
 public class TopicController { // maintain minimal logic in Controller class
 
     @Autowired
