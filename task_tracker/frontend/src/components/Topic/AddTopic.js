@@ -23,6 +23,7 @@ class AddTopic extends Component {
 
   // life cycle hooks
   componentWillReceiveProps(nextProps) {
+    // if errors
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
