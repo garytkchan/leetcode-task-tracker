@@ -19,4 +19,11 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleTopicNotFoundException(TopicNotFoundException ex, WebRequest request) {
+
+        TopicNotFoundExceptionResponse exceptionResponse = new TopicNotFoundExceptionResponse(ex.getMessage());
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }

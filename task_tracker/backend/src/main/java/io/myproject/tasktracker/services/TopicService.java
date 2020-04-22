@@ -1,7 +1,9 @@
 package io.myproject.tasktracker.services;
 
+import io.myproject.tasktracker.domain.Backlog;
 import io.myproject.tasktracker.domain.Topic;
 import io.myproject.tasktracker.exceptions.TopicIdException;
+import io.myproject.tasktracker.repositories.BacklogRepository;
 import io.myproject.tasktracker.repositories.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,30 @@ public class TopicService {
     @Autowired
     private TopicRepository topicRepository;
 
-    // Save or update a Topic
+    @Autowired
+    private BacklogRepository backlogRepository;
+
+    // Save or update a Topic(share with CREATE and UPDATE)
     public Topic saveOrUpdateTopic(Topic topic) {
 
         try {
             topic.setTopicIdentifier(topic.getTopicIdentifier().toUpperCase());
+
+            // New Topic
+            if (topic.getId() == null){
+
+                // Create a new Backlog for the new topic
+                Backlog backlog = new Backlog();
+                topic.setBacklog(backlog);
+                backlog.setTopic(topic);
+                backlog.setTopicIdentifier(topic.getTopicIdentifier().toUpperCase());
+            }
+
+            // Updating a Topic. Get the topic's existing backlog with its idenifier from BacklogRepository
+            if (topic.getId() != null) {
+                topic.setBacklog(backlogRepository.findByTopicIdentifier(topic.getTopicIdentifier().toUpperCase()));
+            }
+
             return topicRepository.save(topic);
         }
         catch (Exception e) {

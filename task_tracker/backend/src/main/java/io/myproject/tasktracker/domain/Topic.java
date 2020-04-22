@@ -1,6 +1,7 @@
 package io.myproject.tasktracker.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,6 +36,10 @@ public class Topic {
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "topic") // foreign key
+    @JsonIgnore
+    private Backlog backlog;
+
     public Topic() {
     }
 
@@ -46,6 +51,14 @@ public class Topic {
     @PreUpdate
     protected  void onUpdate() {
         this.updated_At = new Date();
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 
     public Long getId() {
