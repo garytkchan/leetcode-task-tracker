@@ -45,6 +45,7 @@ class AddTopic extends Component {
       start_date: this.state.start_date,
       end_date: this.state.end_date,
     };
+
     this.props.createTopic(newTopic, this.props.history);
   }
 
@@ -147,6 +148,7 @@ class AddTopic extends Component {
   }
 }
 
+// Set this class props
 AddTopic.propTypes = {
   createTopic: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,

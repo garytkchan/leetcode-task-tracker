@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Backlog from "./Backlog";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getBacklog } from "../../actions/backlogActions";
 
 class TopicBoard extends Component {
+  // live cycle hook
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.getBacklog(id);
+  }
+
   render() {
     // get to topic identifier
     const { id } = this.props.match.params;
+    // match the state from Redux
+    const { questions } = this.props.backlog;
     return (
       <div className="container">
         <Link to={`/addQuestion/${id}`} className="btn btn-primary mb-3">
@@ -15,66 +27,21 @@ class TopicBoard extends Component {
         {
           // backlog starts here
         }
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card text-center mb-2">
-                <div className="card-header bg-secondary text-white">
-                  <h3>TO DO</h3>
-                </div>
-              </div>
-              {
-                // sample question starts here
-              }
-
-              <div className="card mb-1 bg-light">
-                <div className="card-header text-primary">
-                  ID: projectSequence -- Priority: priorityString
-                </div>
-                <div className="card-body bg-light">
-                  <h5 className="card-title">project_task.summary</h5>
-                  <p className="card-text text-truncate ">
-                    project_task.acceptanceCriteria
-                  </p>
-                  <a href="" className="btn btn-primary">
-                    View / Update
-                  </a>
-
-                  <button className="btn btn-danger ml-4">Delete</button>
-                </div>
-              </div>
-
-              {
-                // sample question ends here
-              }
-            </div>
-            <div className="col-md-4">
-              <div className="card text-center mb-2">
-                <div className="card-header bg-primary text-white">
-                  <h3>In Progress</h3>
-                </div>
-              </div>
-              {
-                // sample question starts here
-                // sample question ends here
-              }
-            </div>
-            <div className="col-md-4">
-              <div className="card text-center mb-2">
-                <div className="card-header bg-success text-white">
-                  <h3>Done</h3>
-                </div>
-              </div>
-              {
-                // sample question starts here
-                // sample question ends here
-              }
-            </div>
-          </div>
-        </div>
+        <Backlog questions_prop={questions} />
       </div>
     );
   }
 }
 
-export default TopicBoard;
+TopicBoard.propTypes = {
+  backlog: PropTypes.object.isRequired,
+  getBacklog: PropTypes.func.isRequired,
+};
+
+// this generates props
+const mapStateToProps = (state) => ({
+  // From index.js at reducers
+  backlog: state.backlog, // props with name "backlog"
+});
+
+export default connect(mapStateToProps, { getBacklog })(TopicBoard);

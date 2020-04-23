@@ -1,9 +1,66 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addQuestion } from "../../../actions/backlogActions";
+import classnames from "classnames";
 
 class AddQuestion extends Component {
+  constructor(props) {
+    super(props);
+    const { id } = this.props.match.params;
+
+    // Initial State
+    this.state = {
+      summary: "",
+      note: "",
+      status: "",
+      priority: 0,
+      dueDate: "",
+      topicIdentifier: id,
+      errors: {},
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  // life cycle hooks
+  componentWillReceiveProps(nextProps) {
+    // if errors
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit(e) {
+    // prevent the form from refreshing
+    e.preventDefault();
+
+    // new question object
+    const newQuestion = {
+      summary: this.state.summary,
+      note: this.state.note,
+      status: this.state.status,
+      priority: this.state.priority,
+      dueDate: this.state.dueDate,
+    };
+
+    // pass props to the addQuestion Function at backlogActions.js
+    this.props.addQuestion(
+      this.state.topicIdentifier,
+      newQuestion,
+      this.props.history
+    );
+  }
+
   render() {
     const { id } = this.props.match.params;
+    // extract the errors from Redux
+    const { errors } = this.state;
     return (
       <div className="add-PBI">
         <div className="container">
@@ -14,21 +71,35 @@ class AddQuestion extends Component {
               </Link>
               <h4 className="display-4 text-center">Add a Question</h4>
               <p className="lead text-center">Project Name + Project Code</p>
-              <form>
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.summary,
+                    })}
                     name="summary"
                     placeholder="Question No: Question Content"
+                    value={this.state.summary}
+                    onChange={this.onChange}
                   />
+                  {errors.summary && (
+                    <div className="invalid-feedback">{errors.summary}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <textarea
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.note,
+                    })}
                     placeholder="Notes"
-                    name="acceptanceCriteria"
+                    name="note"
+                    value={this.state.note}
+                    onChange={this.onChange}
                   ></textarea>
+                  {errors.note && (
+                    <div className="invalid-feedback">{errors.note}</div>
+                  )}
                 </div>
                 <h6>Due Date</h6>
                 <div className="form-group">
@@ -36,12 +107,16 @@ class AddQuestion extends Component {
                     type="date"
                     className="form-control form-control-lg"
                     name="dueDate"
+                    value={this.state.dueDate}
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
                     name="priority"
+                    value={this.state.priority}
+                    onChange={this.onChange}
                   >
                     <option value={0}>Select Priority</option>
                     <option value={1}>High</option>
@@ -54,6 +129,8 @@ class AddQuestion extends Component {
                   <select
                     className="form-control form-control-lg"
                     name="status"
+                    value={this.state.status}
+                    onChange={this.onChange}
                   >
                     <option value="">Select Status</option>
                     <option value="TO_DO">TO DO</option>
@@ -75,4 +152,15 @@ class AddQuestion extends Component {
   }
 }
 
-export default AddQuestion;
+// Set this class props
+AddQuestion.propTypes = {
+  addQuestion: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+// map to Redux State.errors
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { addQuestion })(AddQuestion);

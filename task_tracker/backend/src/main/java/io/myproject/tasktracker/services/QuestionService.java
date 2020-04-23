@@ -48,11 +48,11 @@ public class QuestionService {
             question.setTopicIdentifier(topicIdentifier);
 
             // initial priority
-            if (question.getPriority() == null){
+            if (question.getPriority() == null || question.getPriority() == 0){
                 question.setPriority(3);  // 3: low priority
             }
             // initial status
-            if (question.getStatus() == null){
+            if (question.getStatus() == null || question.getStatus().equals("")){
                 question.setStatus("TO_DO");
             }
 
