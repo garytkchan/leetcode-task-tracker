@@ -5,7 +5,7 @@ import { GET_ERRORS, GET_TOPICS, GET_TOPIC, DELETE_TOPIC } from "./types";
 export const createTopic = (topic, history) => async (dispatch) => {
   try {
     // from post API
-    const res = await axios.post("http://localhost:8080/api/topic", topic);
+    await axios.post("http://localhost:8080/api/topic", topic);
     history.push("/dashboard");
 
     dispatch({

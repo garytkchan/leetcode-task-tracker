@@ -1,5 +1,6 @@
 import { GET_TOPICS, GET_TOPIC, DELETE_TOPIC } from "../actions/types";
 
+// reducer must have an initial state
 const initialState = {
   topics: [],
   topic: {},
@@ -23,7 +24,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         topics: state.topics.filter(
-          (topic) => topic.topicIdentifier != action.payload
+          (topic) => topic.topicIdentifier !== action.payload
           // delete without refreshing page
         ),
       };

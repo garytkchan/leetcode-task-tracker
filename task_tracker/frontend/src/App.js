@@ -8,6 +8,8 @@ import AddTopic from "./components/Topic/AddTopic";
 import { Provider } from "react-redux";
 import store from "./store";
 import UpdateTopic from "./components/Topic/UpdateTopic";
+import TopicBoard from "./components/TopicBoard/TopicBoard";
+import AddQuestion from "./components/TopicBoard/Questions/AddQuestion";
 
 class App extends Component {
   render() {
@@ -19,6 +21,8 @@ class App extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/addTopic" component={AddTopic} />
             <Route exact path="/updateTopic/:id" component={UpdateTopic} />
+            <Route exact path="/topicBoard/:id" component={TopicBoard} />
+            <Route exact path="/addQuestion/:id" component={AddQuestion} />
           </div>
         </Router>
       </Provider>
