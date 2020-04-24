@@ -22,13 +22,14 @@ class UpdateTopic extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // life cycle hooks. Load the received props
   componentWillReceiveProps(nextProps) {
     // if errors
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
 
-    // ReactDevTools/UpdateProject/Props/Topic
+    // ReactDevTools/UpdateProject/Props/Topic. Destructure topic props
     const {
       id,
       topicName,

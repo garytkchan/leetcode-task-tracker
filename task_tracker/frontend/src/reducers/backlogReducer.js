@@ -29,7 +29,10 @@ export default function (state = initialState, action) {
     case DELETE_QUESTION:
       return {
         ...state,
-        // TODO
+        // delete without refreshing page!!!!!!!!
+        questions: state.questions.filter(
+          (question) => question.topicSequence !== action.payload
+        ),
       };
 
     default:

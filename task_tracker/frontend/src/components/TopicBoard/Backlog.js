@@ -10,6 +10,21 @@ class Backlog extends Component {
     const qs = questions_prop.map((question) => (
       <Question key={question.id} question={question} />
     ));
+
+    let todoItems = [];
+    let inProgressItems = [];
+    let doneItems = [];
+
+    for (let i = 0; i < qs.length; i++) {
+      if (qs[i].props.question.status === "TO_DO") {
+        todoItems.push(qs[i]);
+      } else if (qs[i].props.question.status === "IN_PROGRESS") {
+        inProgressItems.push(qs[i]);
+      } else if (qs[i].props.question.status === "DONE") {
+        doneItems.push(qs[i]);
+      }
+    }
+
     return (
       <div className="container">
         <div className="row">
@@ -19,7 +34,7 @@ class Backlog extends Component {
                 <h3>TO DO</h3>
               </div>
             </div>
-            {qs}
+            {todoItems}
             {
               // insert here
             }
@@ -30,10 +45,7 @@ class Backlog extends Component {
                 <h3>In Progress</h3>
               </div>
             </div>
-            {
-              // sample question starts here
-              // sample question ends here
-            }
+            {inProgressItems}
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
@@ -41,10 +53,7 @@ class Backlog extends Component {
                 <h3>Done</h3>
               </div>
             </div>
-            {
-              // sample question starts here
-              // sample question ends here
-            }
+            {doneItems}
           </div>
         </div>
       </div>

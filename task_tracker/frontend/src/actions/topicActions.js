@@ -52,7 +52,9 @@ export const getTopic = (id, history) => async (dispatch) => {
 // Delete a topic
 export const deleteTopic = (id) => async (dispatch) => {
   // pops up confirm delete box
-  if (window.confirm("Please confirm that you want to delete this topic.")) {
+  if (
+    window.confirm(`Please confirm that you want to delete this topic: ${id}`)
+  ) {
     await axios.delete(`/api/topic/${id}`);
     dispatch({
       type: DELETE_TOPIC,

@@ -10,6 +10,7 @@ import store from "./store";
 import UpdateTopic from "./components/Topic/UpdateTopic";
 import TopicBoard from "./components/TopicBoard/TopicBoard";
 import AddQuestion from "./components/TopicBoard/Questions/AddQuestion";
+import UpdateQuestion from "./components/TopicBoard/Questions/UpdateQuestion";
 
 class App extends Component {
   render() {
@@ -23,6 +24,11 @@ class App extends Component {
             <Route exact path="/updateTopic/:id" component={UpdateTopic} />
             <Route exact path="/topicBoard/:id" component={TopicBoard} />
             <Route exact path="/addQuestion/:id" component={AddQuestion} />
+            <Route
+              exact
+              path="/updateQuestion/:backlog_id/:q_id"
+              component={UpdateQuestion}
+            />
           </div>
         </Router>
       </Provider>
