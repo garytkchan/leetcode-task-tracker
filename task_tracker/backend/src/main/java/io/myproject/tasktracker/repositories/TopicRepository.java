@@ -12,5 +12,7 @@ public interface TopicRepository extends CrudRepository<Topic, Long> {
     @Override
     Iterable<Topic> findAll();
 
+    Iterable<Topic> findAllByTopicLeader(String username);
+
 
 }

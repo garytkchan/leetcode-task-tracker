@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,40 +28,39 @@ public class TopicController { // maintain minimal logic in Controller class
     private MapValidationErrorService mapValidationErrorService;
 
     // CREATE
-    @PostMapping("")
-    public ResponseEntity<?> createNewTopic(@Valid @RequestBody Topic topic, BindingResult result ){
+    @PostMapping("") // principal is the one who owns the valid token
+    public ResponseEntity<?> createNewTopic(@Valid @RequestBody Topic topic, BindingResult result, Principal principal){
         // binding result determines error(from spring framework)
 
-        //
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null) {
             return errorMap;
         }
-        Topic topic1 = topicService.saveOrUpdateTopic(topic);
+        Topic topic1 = topicService.saveOrUpdateTopic(topic, principal.getName());
 
         return new ResponseEntity<Topic>(topic1, HttpStatus.CREATED);
     }
 
     // READ one topic
     @GetMapping("/{topicId}")
-    public ResponseEntity<?> getTopicById(@PathVariable String topicId) {
+    public ResponseEntity<?> getTopicById(@PathVariable String topicId, Principal principal) {
 
-        Topic topic = topicService.findTopicByIdentifier(topicId);
+        Topic topic = topicService.findTopicByIdentifier(topicId, principal.getName());
 
         return new ResponseEntity<Topic>(topic, HttpStatus.OK);
     }
 
     // READ all topics
     @GetMapping("/all")
-    public Iterable<Topic> getAllTopics() {
-        return topicService.findAllTopics();
+    public Iterable<Topic> getAllTopics(Principal principal) {
+        return topicService.findAllTopics(principal.getName());
     }
 
     // DELETE one topic
     @DeleteMapping("/{topicId}")
-    public ResponseEntity<?> deleteTopicById(@PathVariable String topicId) {
+    public ResponseEntity<?> deleteTopicById(@PathVariable String topicId, Principal principal) {
 
-        topicService.deleteTopicByIdentifier(topicId);
+        topicService.deleteTopicByIdentifier(topicId, principal.getName());
         return new ResponseEntity<String>("Topic with ID:" + topicId + " is deleted", HttpStatus.OK);
     }
 }

@@ -26,12 +26,15 @@ public class QuestionService {
     @Autowired
     private TopicRepository topicRepository;
 
-    public Question addQuestion(String topicIdentifier, Question question) {
+    @Autowired
+    private TopicService topicService;
+
+    public Question addQuestion(String topicIdentifier, Question question, String username) {
         // topic sequence: topicIdentifier + questionID
 
-        try {
+
             // Get its topic's backlog
-            Backlog backlog = backlogRepository.findByTopicIdentifier(topicIdentifier);
+            Backlog backlog = topicService.findTopicByIdentifier(topicIdentifier, username).getBacklog();//backlogRepository.findByTopicIdentifier(topicIdentifier);
 
             // set it with the new question
             question.setBacklog(backlog);
@@ -58,32 +61,21 @@ public class QuestionService {
 
             return questionRepository.save(question);
 
-        }   catch(Exception e) {
 
-                throw new TopicNotFoundException("This topic is not found");
-        }
     }
 
-    public Iterable<Question> findBacklogById(String id) {
+    public Iterable<Question> findBacklogById(String id, String username) {
 
-        Topic topic = topicRepository.findByTopicIdentifier(id);
-
-        // handle non-exist topic
-        if (topic == null){
-            throw new TopicNotFoundException("Topic with ID " + "'" +  id + "'" + " doesn't exist");
-        }
+        topicService.findTopicByIdentifier(id, username);
 
         return questionRepository.findByTopicIdentifierOrderByPriority(id);
     }
 
     // find question by topic sequence: topicIdentifier/topicSequence. Both has to be valid
-    public Question findPTByTopicSequence(String backlog_id, String q_id){
+    public Question findPTByTopicSequence(String backlog_id, String q_id, String username){
 
         // make sure we are searching on a valid backlog
-        Backlog backlog = backlogRepository.findByTopicIdentifier(backlog_id);
-        if (backlog == null) {
-            throw new TopicNotFoundException("Topic with ID " + "'" +  backlog_id + "'" + " doesn't exist");
-        }
+        topicService.findTopicByIdentifier(backlog_id, username);
 
         // make sure the question exists
         Question question = questionRepository.findByTopicSequence(q_id);
@@ -100,17 +92,17 @@ public class QuestionService {
     }
 
     // Update a question
-    public Question updateByTopicSequence(Question updatedQuestion, String backlog_id, String q_id) {
+    public Question updateByTopicSequence(Question updatedQuestion, String backlog_id, String q_id, String username) {
 
-        Question question = findPTByTopicSequence(backlog_id, q_id);
+        Question question = findPTByTopicSequence(backlog_id, q_id, username);
         question = updatedQuestion;
 
         return questionRepository.save(question);
     }
 
     // Delete a question
-    public void deleteQuestionByTopicSequence(String backlog_id, String q_id){
-        Question question = findPTByTopicSequence(backlog_id, q_id);
+    public void deleteQuestionByTopicSequence(String backlog_id, String q_id, String username){
+        Question question = findPTByTopicSequence(backlog_id, q_id, username);
         questionRepository.delete(question);
     }
 }

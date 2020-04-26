@@ -40,6 +40,13 @@ public class Topic {
     @JsonIgnore
     private Backlog backlog;
 
+    // ManyToOne User
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+    private String topicLeader;
+
     public Topic() {
     }
 
@@ -123,5 +130,21 @@ public class Topic {
 
     public void setUpdated_At(Date updated_At) {
         this.updated_At = updated_At;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getTopicLeader() {
+        return topicLeader;
+    }
+
+    public void setTopicLeader(String topicLeader) {
+        this.topicLeader = topicLeader;
     }
 }
