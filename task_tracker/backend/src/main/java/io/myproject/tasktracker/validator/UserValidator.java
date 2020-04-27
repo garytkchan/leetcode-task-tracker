@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+// validate password and confirmPassword
 @Component
 public class UserValidator implements Validator {
 

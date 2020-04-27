@@ -10,3 +10,6 @@ export const DELETE_TOPIC = "DELETE_TOPIC";
 export const GET_BACKLOG = "GET_BACKLOG";
 export const GET_QUESTION = "GET_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
+
+// handle users
+export const SET_CURRENT_USER = "SET_CURRENT_USER";

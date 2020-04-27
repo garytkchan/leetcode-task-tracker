@@ -29,7 +29,7 @@ class UpdateTopic extends Component {
       this.setState({ errors: nextProps.errors });
     }
 
-    // ReactDevTools/UpdateProject/Props/Topic. Destructure topic props
+    // ReactDevTools/UpdateProject/Props/Topic. ES6 Destructure topic props
     const {
       id,
       topicName,

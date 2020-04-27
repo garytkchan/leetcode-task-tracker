@@ -11,6 +11,38 @@ import UpdateTopic from "./components/Topic/UpdateTopic";
 import TopicBoard from "./components/TopicBoard/TopicBoard";
 import AddQuestion from "./components/TopicBoard/Questions/AddQuestion";
 import UpdateQuestion from "./components/TopicBoard/Questions/UpdateQuestion";
+import Landing from "./components/Layout/Landing";
+import Register from "./components/UserManagement/Register";
+import Login from "./components/UserManagement/Login";
+import jwt_decode from "jwt-decode";
+import setJWTToken from "./securityUtils/setJWTToken";
+import { SET_CURRENT_USER } from "./actions/types";
+import { logout } from "./actions/securityAction";
+
+// everytime refreshes of page, token is gone.
+// Set token here prevent this problem
+const jwtToken = localStorage.jwtToken;
+
+if (jwtToken) {
+  // set token
+  setJWTToken(jwtToken);
+  // decode token
+  const decoded_token = jwt_decode(jwtToken);
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded_token,
+  });
+
+  const currentTime = Date.now() / 1000;
+
+  // if time for token is expired
+  if (decoded_token.exp < currentTime) {
+    // handle logout needed
+    store.dispatch(logout());
+    // send user back to the main page
+    window.location.href = "/";
+  }
+}
 
 class App extends Component {
   render() {
@@ -19,6 +51,18 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header />
+            {
+              // Public routes
+            }
+
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+
+            {
+              // Below are all private routes
+            }
+
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/addTopic" component={AddTopic} />
             <Route exact path="/updateTopic/:id" component={UpdateTopic} />
