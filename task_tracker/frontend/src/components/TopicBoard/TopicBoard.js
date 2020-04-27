@@ -43,7 +43,14 @@ class TopicBoard extends Component {
               {errors.topicNotFound}
             </div>
           );
-        } else {
+        } else if (errors.topicIdentifier) {
+          return (
+            <div className="alert alert-danger text-center" role="alert">
+              {errors.topicIdentifier}
+            </div>
+          );
+        }
+        {
           return (
             <div className="alert alert-danger text-center" role="alert">
               No Question Created Under This Topic

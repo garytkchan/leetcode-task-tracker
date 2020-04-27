@@ -18,6 +18,14 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // Don't show to ask user to login or register again when they already login
+  // life cycle hook
+  componentDidMount() {
+    if (this.props.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   // this method takes the valid token to load the user's dashboard
   // life cycle hooks
   componentWillReceiveProps(nextProps) {

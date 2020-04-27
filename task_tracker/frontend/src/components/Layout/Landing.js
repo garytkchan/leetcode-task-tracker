@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Landing extends Component {
+  // Don't show to ask user to login or register again when they already login
+  // life cycle hook
+  componentDidMount() {
+    if (this.props.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   render() {
     return (
       <div className="landing">
@@ -29,4 +39,15 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+// Set this class props
+Landing.propTypes = {
+  security: PropTypes.object.isRequired,
+};
+
+// map to Redux State
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+  security: state.security,
+});
+
+export default connect(mapStateToProps)(Landing);

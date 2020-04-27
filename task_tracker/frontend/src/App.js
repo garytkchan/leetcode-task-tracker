@@ -3,7 +3,7 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css.map";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AddTopic from "./components/Topic/AddTopic";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -18,6 +18,7 @@ import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logout } from "./actions/securityAction";
+import SecuredRoute from "./securityUtils/SecureRoute";
 
 // everytime refreshes of page, token is gone.
 // Set token here prevent this problem
@@ -62,17 +63,30 @@ class App extends Component {
             {
               // Below are all private routes
             }
-
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/addTopic" component={AddTopic} />
-            <Route exact path="/updateTopic/:id" component={UpdateTopic} />
-            <Route exact path="/topicBoard/:id" component={TopicBoard} />
-            <Route exact path="/addQuestion/:id" component={AddQuestion} />
-            <Route
-              exact
-              path="/updateQuestion/:backlog_id/:q_id"
-              component={UpdateQuestion}
-            />
+            <Switch>
+              <SecuredRoute exact path="/dashboard" component={Dashboard} />
+              <SecuredRoute exact path="/addTopic" component={AddTopic} />
+              <SecuredRoute
+                exact
+                path="/updateTopic/:id"
+                component={UpdateTopic}
+              />
+              <SecuredRoute
+                exact
+                path="/topicBoard/:id"
+                component={TopicBoard}
+              />
+              <SecuredRoute
+                exact
+                path="/addQuestion/:id"
+                component={AddQuestion}
+              />
+              <SecuredRoute
+                exact
+                path="/updateQuestion/:backlog_id/:q_id"
+                component={UpdateQuestion}
+              />
+            </Switch>
           </div>
         </Router>
       </Provider>
