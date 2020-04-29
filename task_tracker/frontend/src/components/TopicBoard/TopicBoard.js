@@ -66,9 +66,11 @@ class TopicBoard extends Component {
 
     return (
       <div className="container">
-        <Link to={`/addQuestion/${id}`} className="btn btn-primary mb-3">
-          <i className="fas fa-plus-circle"> Add a Question</i>
-        </Link>
+        <div className="col-md-4">
+          <Link to={`/addQuestion/${id}`} className="btn btn-info btn-sm mb-3">
+            <i className="fas fa-plus-circle"> Add a Question</i>
+          </Link>
+        </div>
         <br />
         <hr />
         {

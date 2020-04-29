@@ -3,10 +3,12 @@ img {
 }
 
 .navbar {
-  background-color: #e3f2fd;
+  background-color: #2e4053;
+  padding-left: 150px !important;
+  padding-right: 150px !important;
 }
 .fa.fa-edit {
-  color: #18a2b9;
+  color: #18a2b9; /* update topic button color*/
 }
 
 .list-group-item.delete:hover {

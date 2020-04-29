@@ -35,23 +35,25 @@ class Question extends Component {
         <div className="card-body bg-light">
           <h5 className="card-title">{question.summary}</h5>
           <p className="card-text text-truncate ">{question.note}</p>
-          <Link
-            to={`/updateQuestion/${question.topicIdentifier}/${question.topicSequence}`}
-            className="btn btn-primary"
-          >
-            View / Update
-          </Link>
+          <span class="float-right">
+            <Link
+              to={`/updateQuestion/${question.topicIdentifier}/${question.topicSequence}`}
+              className="btn btn-primary btn-sm"
+            >
+              Update
+            </Link>
 
-          <button
-            className="btn btn-danger ml-4"
-            onClick={this.onDeleteClick.bind(
-              this,
-              question.topicIdentifier,
-              question.topicSequence
-            )}
-          >
-            Delete
-          </button>
+            <button
+              className="btn btn-secondary ml-4 btn-sm"
+              onClick={this.onDeleteClick.bind(
+                this,
+                question.topicIdentifier,
+                question.topicSequence
+              )}
+            >
+              Delete
+            </button>
+          </span>
         </div>
       </div>
     );

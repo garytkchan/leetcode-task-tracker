@@ -25,20 +25,18 @@ class TopicItem extends Component {
             <div className="col-md-4 d-none d-lg-block">
               <ul className="list-group">
                 <Link to={`/topicBoard/${topic.topicIdentifier}`}>
-                  <li className="list-group-item board">
-                    <i className="fa fa-flag-checkered pr-1">
-                      Look At Questions
-                    </i>
+                  <li className="list-group-item board py-1">
+                    <i className="fas fa-book-open"> Look At Questions</i>
                   </li>
                 </Link>
                 <Link to={`/updateTopic/${topic.topicIdentifier}`}>
-                  <li className="list-group-item update">
-                    <i className="fa fa-edit pr-1"> Update Topic Info</i>
+                  <li className="list-group-item update py-1">
+                    <i className="fa fa-edit pr-1"> Update Topic</i>
                   </li>
                 </Link>
 
                 <li
-                  className="list-group-item delete"
+                  className="list-group-item delete py-1"
                   onClick={this.onDeleteClick.bind(this, topic.topicIdentifier)}
                 >
                   <i className="fa fa-minus-circle pr-1"> Delete Topic</i>

@@ -106,7 +106,7 @@ class UpdateQuestion extends Component {
               </Link>
               <h4 className="display-4 text-center">Update Question</h4>
               <p className="lead text-center">
-                Topic: {this.state.topicIdentifier} + Question Code:
+                Topic: {this.state.topicIdentifier} Question Code:{" "}
                 {this.state.topicSequence}
               </p>
               <form onSubmit={this.onSubmit}>

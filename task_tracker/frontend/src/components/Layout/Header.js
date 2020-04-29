@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logout } from "../../actions/securityAction";
+import "../../App.css";
 
 class Header extends Component {
   // props.logout(). This function is from securityAction.js
@@ -21,7 +22,7 @@ class Header extends Component {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link className="nav-link" to="/dashboard">
-              Dashboard
+              Study Topics
             </Link>
           </li>
         </ul>
@@ -74,10 +75,13 @@ class Header extends Component {
 
     return (
       //NavBar Component Code
-      <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
+      <nav className="navbar navbar-expand-sm navbar-dark mb-4">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            Leetcode Progress Tracker
+            <i className="fa fa-flag-checkered pr-1">
+              {" "}
+              Leetcode Progress Tracker
+            </i>
           </Link>
           <button
             className="navbar-toggler"
