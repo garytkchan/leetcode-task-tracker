@@ -1,4 +1,4 @@
-# leetcode-task-tracker
+# leetcode-progress-tracker
 This is a full stack web app that helps students to track their progress when practicing leetcode questions.
 
 ## Technogies applied to this project
