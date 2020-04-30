@@ -19,7 +19,7 @@ class TopicItem extends Component {
               <span className="mx-auto">{topic.topicIdentifier}</span>
             </div>
             <div className="col-lg-6 col-md-4 col-8">
-              <h3>{topic.topicName}</h3>
+              <h5>{topic.topicName}</h5>
               <p>{topic.description}</p>
             </div>
             <div className="col-md-4 d-none d-lg-block">

@@ -19,12 +19,12 @@ class Dashboard extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h2 className="display-4 text-center">
+              <h3 className="display-4 text-center">
                 Data Structure or Algorithms Topics
-              </h2>
-              <br />
+              </h3>
+
               <CreateTopicButton />
-              <br />
+
               <hr />
               {topics.map((topic) => (
                 <TopicItem key={topic.id} topic={topic} />

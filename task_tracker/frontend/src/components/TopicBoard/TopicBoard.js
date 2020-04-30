@@ -71,7 +71,7 @@ class TopicBoard extends Component {
             <i className="fas fa-plus-circle"> Add a Question</i>
           </Link>
         </div>
-        <br />
+
         <hr />
         {
           // backlog starts here

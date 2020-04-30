@@ -70,7 +70,7 @@ class AddQuestion extends Component {
                 Back to Topic Board
               </Link>
               <h4 className="display-4 text-center">Add a Question</h4>
-              <p className="lead text-center">Project Name + Project Code</p>
+              <p className="lead text-center">Topic: {id}</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
