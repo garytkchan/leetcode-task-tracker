@@ -1,6 +1,13 @@
 # leetcode-progress-tracker
 This is a full stack web app that helps students to track their progress when practicing leetcode questions.
 
+1. Visit the website at \
+http://leetcodeprogresstracker-env.eba-vnnc6aew.us-east-2.elasticbeanstalk.com/
+
+2. Please use the following login credential to test the functions of the app.\
+Username: test@email.com \
+Password: password
+
 ## Technogies applied to this project
 
 ### Backend:
@@ -22,7 +29,7 @@ This is a full stack web app that helps students to track their progress when pr
 4. Each user is required to create his/her account to better manage their info and group of questions.
 
 
-## Steps to run the app
+## Steps to run the app in development mode
 
 1. Run the backend project on a IDE that supports Java(IntelliJ Idea, Eclipse, etc)
 
