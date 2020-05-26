@@ -12,10 +12,10 @@ Password: password
 
 ### Backend:
 
-- This project was developed in Java, implemented Spring MVC backend with JPA Repository to support CRUD functions.
+- This project was developed in Java, implemented Spring MVC backend with Spring Data JPA to support CRUD functions.
 - Created servlets with REST APIs to handle HTTP requests and responses.
-- Hibernate 5 was used to map domain models to the MySQL database. 
 - Spring Security is applied to implement JWT based authentication.
+- The app was developed with the MySQL Relational Database
 
 ### Frontend:
 - Created interactive web pages with ReactJS and the project is powered by bootstrap.
