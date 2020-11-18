@@ -47,8 +47,7 @@ public class Topic {
 
     private String topicLeader;
 
-    public Topic() {
-    }
+    public Topic(){}
 
     @PrePersist
     protected void onCreate() {
